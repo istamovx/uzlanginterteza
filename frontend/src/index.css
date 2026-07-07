@@ -1,0 +1,140 @@
+@import "@fontsource-variable/inter";
+@import "tailwindcss";
+
+/* ===== Align UI 2.0 tokenlari (DESIGN_SYSTEM.md) =====
+   Minimal shrift o'lchami — 16px (foydalanuvchi talabi). */
+@theme {
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* text */
+  --color-strong: #171717;
+  --color-sub: #5c5c5c;
+  --color-soft: #a3a3a3;
+  --color-disabled: #d1d1d1;
+
+  /* background / stroke */
+  --color-white-0: #ffffff;
+  --color-weak-50: #f7f7f7;
+  --color-soft-200: #ebebeb;
+  --color-surface-800: #262626;
+
+  /* AlignUI asosiy palitra */
+  --color-primary: #335cff;
+  --color-primary-dark: #2547d0;
+  --color-primary-darker: #1f3bad;
+  --color-primary-light: #ebf1ff;
+  --color-success: #1fc16b;
+  --color-success-light: #e0faec;
+  --color-error: #fb3748;
+  --color-error-light: #ffebec;
+  --color-warning: #ff8447;
+  --color-warning-light: #fff1eb;
+  --color-feature: #7d52f4;
+  --color-feature-light: #efebff;
+  --color-highlight: #fb4ba3;
+  --color-highlight-light: #ffebf4;
+  --color-highlight-dark: #68123d;
+  --color-verified: #47c2ff;
+  --color-verified-light: #ebf8ff;
+
+  /* radius */
+  --radius-16: 16px;
+  --radius-full: 999px;
+
+  /* shrift shkalasi — 16px dan kichik yo'q */
+  --text-base: 16px;
+  --text-base--line-height: 24px;
+  --text-lg: 18px;
+  --text-lg--line-height: 28px;
+  --text-xl: 20px;
+  --text-xl--line-height: 28px;
+}
+
+html {
+  font-family: var(--font-sans);
+  color: var(--color-strong);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--color-white-0);
+  min-height: 100dvh;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* ===== Bezak va animatsiyalar (header + bosh sahifa) ===== */
+
+/* "tezaurusi" so'zi — atlas (ikat) matosidek jilolanadigan gradient matn */
+.anim-gradient-text {
+  background-image: linear-gradient(
+    90deg,
+    var(--color-primary),
+    var(--color-feature),
+    var(--color-highlight),
+    var(--color-primary)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+}
+@keyframes float-y {
+  0%, 100% { transform: translateY(-5px) rotate(var(--rot, 0deg)); }
+  50% { transform: translateY(9px) rotate(var(--rot, 0deg)); }
+}
+@keyframes spin-slow {
+  to { transform: rotate(1turn); }
+}
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+/* Yuklanish skeletlari */
+.skeleton {
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    var(--color-weak-50) 25%,
+    var(--color-soft-200) 50%,
+    var(--color-weak-50) 75%
+  );
+  background-size: 200% 100%;
+}
+
+/* Harakat kamaytirilgan rejimda animatsiyalar o'chadi */
+@media (prefers-reduced-motion: no-preference) {
+  .anim-gradient-text { animation: gradient-x 7s ease-in-out infinite; }
+  .anim-fade-up { animation: fade-up 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+  .anim-float { animation: float-y 7s ease-in-out infinite; }
+  .anim-spin-slow { animation: spin-slow 28s linear infinite; }
+  .skeleton { animation: shimmer 1.6s linear infinite; }
+  .anim-delay-100 { animation-delay: 0.1s; }
+  .anim-delay-200 { animation-delay: 0.2s; }
+  .anim-delay-300 { animation-delay: 0.3s; }
+  .anim-delay-500 { animation-delay: 0.5s; }
+}
+
+/* Chop etish: faqat mazmun qolsin */
+@media print {
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+  main {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+}
