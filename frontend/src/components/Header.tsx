@@ -34,15 +34,15 @@ export default function Header() {
         <div className="absolute inset-0 bg-gradient-to-r from-primary-light/70 via-transparent to-feature-light/60" />
       </div>
 
-      <div className="relative mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+      <div className="relative flex w-full items-center justify-between gap-4 py-3 px-4 sm:px-6 lg:px-10 2xl:px-16">
         <Link
           to="/"
           className="flex min-w-0 items-center gap-2 font-display text-lg font-semibold tracking-tight"
         >
           <StarOrnament className="anim-spin-slow h-5 w-5 shrink-0 text-primary" />
           <span className="truncate">
-            O'zbek intertekstual{" "}
-            <span className="anim-gradient-text">tezaurusi</span>
+            O‘ZBEK INTERTEKSTUAL{" "}
+            <span className="anim-gradient-text">TEZAURUSI</span>
           </span>
         </Link>
 

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { api, type GraphData } from "../api";
+import { api, TYPE_COLORS, TYPE_LABELS, type EntryType, type GraphData } from "../api";
 
 /* Butun tezaurusning interaktiv semantik tarmog'i.
    Kuch (force) simulyatsiyasi kutubxonasiz yozilgan: tugunlar bir-birini
@@ -21,8 +21,7 @@ interface SimNode {
 }
 
 const COLORS: Record<string, string> = {
-  "allyuziv-nom": "#335cff",
-  iqtibos: "#7d52f4",
+  ...TYPE_COLORS,
   hypernym: "#a3a3a3",
 };
 
@@ -117,7 +116,7 @@ function tick(nodes: SimNode[], links: [number, number, string][], alpha: number
 export default function NetworkPage() {
   const [data, setData] = useState<GraphData | null>(null);
   const [error, setError] = useState(false);
-  const [filter, setFilter] = useState<"all" | "allyuziv-nom" | "iqtibos">("all");
+  const [filter, setFilter] = useState<"all" | EntryType>("all");
   const [hover, setHover] = useState<number | null>(null);
   const [, forceRender] = useState(0);
   const [viewBox, setViewBox] = useState({ x: 0, y: 0, w: W, h: H });
@@ -251,7 +250,7 @@ export default function NetworkPage() {
           <h1 className="font-display text-[clamp(24px,4vw,32px)] font-semibold">
             Semantik tarmoq
           </h1>
-          <p className="max-w-2xl text-sub">
+          <p className="text-sub">
             Barcha birliklar va giperonim guruhlari bitta grafda. G'ildirak —
             masshtab, sudrash — surish, tugun ustiga boring yoki bosing.
           </p>
@@ -262,6 +261,7 @@ export default function NetworkPage() {
               ["all", "Hammasi"],
               ["allyuziv-nom", "Allyuziv nomlar"],
               ["iqtibos", "Iqtiboslar"],
+              ["maqol", "Maqollar"],
             ] as const
           ).map(([v, label]) => (
             <button
@@ -279,20 +279,18 @@ export default function NetworkPage() {
 
       {/* Legenda */}
       <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sub">
-        <span className="flex items-center gap-2">
-          <span className="h-3.5 w-3.5 rounded-full" style={{ background: COLORS["allyuziv-nom"] }} />
-          Allyuziv nom
-        </span>
-        <span className="flex items-center gap-2">
-          <span className="h-3.5 w-3.5 rounded-full" style={{ background: COLORS["iqtibos"] }} />
-          Iqtibos
-        </span>
+        {(Object.keys(TYPE_COLORS) as EntryType[]).map((t) => (
+          <span key={t} className="flex items-center gap-2">
+            <span className="h-3.5 w-3.5 rounded-full" style={{ background: TYPE_COLORS[t] }} />
+            {TYPE_LABELS[t]}
+          </span>
+        ))}
         <span className="flex items-center gap-2">
           <span className="h-3.5 w-3.5 rounded-full border-2 border-soft" style={{ background: "#f7f7f7" }} />
           Giperonim guruhi
         </span>
         <span className="flex items-center gap-2">
-          <span className="inline-block h-0.5 w-6 bg-highlight" /> sinonim bog'i
+          <span className="inline-block h-0.5 w-6 bg-highlight" /> Sinonimik munosabat
         </span>
       </div>
 

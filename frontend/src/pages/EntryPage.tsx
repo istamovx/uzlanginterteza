@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { api, TYPE_LABELS, type EntryDetail } from "../api";
-import Badge from "../components/Badge";
+import Badge, { typeVariant } from "../components/Badge";
 import EntryCard from "../components/EntryCard";
 import TooltipLink from "../components/TooltipLink";
 import NodeDiagram from "../components/NodeDiagram";
@@ -102,7 +102,7 @@ export default function EntryPage() {
   }
   if (!entry) {
     return (
-      <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 py-2" aria-label="Yuklanmoqda">
+      <div className="flex w-full flex-col gap-6 py-2" aria-label="Yuklanmoqda">
         <div className="flex flex-col gap-4 rounded-2xl border border-soft-200 p-6 sm:p-8">
           <div className="skeleton h-9 w-1/2" />
           <div className="skeleton h-5 w-1/3" />
@@ -129,7 +129,7 @@ export default function EntryPage() {
     .join(", ");
 
   return (
-    <article className="anim-fade-up mx-auto flex w-full max-w-3xl flex-col gap-7 py-2">
+    <article className="anim-fade-up flex w-full flex-col gap-7 py-2">
       {/* Sarlavha bloki — girih naqshli karta */}
       <header className="relative overflow-hidden rounded-2xl border border-soft-200 p-6 sm:p-8">
         <div className="pointer-events-none absolute inset-0" aria-hidden>
@@ -173,7 +173,7 @@ export default function EntryPage() {
           )}
 
           <div className="flex flex-wrap gap-2">
-            <Badge variant={entry.type === "iqtibos" ? "type-iqtibos" : "type-allyuziv"}>
+            <Badge variant={typeVariant(entry.type)}>
               {TYPE_LABELS[entry.type]}
             </Badge>
             {entry.recognition && (
@@ -330,7 +330,7 @@ export default function EntryPage() {
                   Shu guruhdagi boshqa birliklar
                 </h2>
               </div>
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
                 {entry.related.map((e) => (
                   <EntryCard key={e.id} entry={e} />
                 ))}

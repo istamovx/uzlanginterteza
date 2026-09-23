@@ -1,4 +1,4 @@
-# O'zbek intertekstual tezaurusi — Arxitektura
+# O‘ZBEK INTERTEKSTUAL TEZAURUSI — Arxitektura
 
 Ulug'bek Hamdam asarlaridagi **allyuziv nomlar** va **iqtiboslar**ni izohlab beruvchi
 interaktiv web-tezaurus. Foydalanuvchi birlikni qidiradi va uning ma'nosi, kelib chiqishi

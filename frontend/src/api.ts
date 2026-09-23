@@ -1,4 +1,4 @@
-export type EntryType = "allyuziv-nom" | "iqtibos";
+export type EntryType = "allyuziv-nom" | "iqtibos" | "maqol";
 
 export interface EntrySummary {
   id: string;
@@ -187,4 +187,12 @@ export const api = {
 export const TYPE_LABELS: Record<EntryType, string> = {
   "allyuziv-nom": "Allyuziv nom",
   iqtibos: "Iqtibos",
+  maqol: "Maqol",
+};
+
+/** Tarmoq grafigi va diagrammalar uchun tur ranglari (index.css tokenlari bilan bir xil). */
+export const TYPE_COLORS: Record<EntryType, string> = {
+  "allyuziv-nom": "#335cff",
+  iqtibos: "#7d52f4",
+  maqol: "#1fc16b",
 };

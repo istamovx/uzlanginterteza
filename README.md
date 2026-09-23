@@ -1,6 +1,6 @@
-# O'zbek intertekstual tezaurusi
+# O‘ZBEK INTERTEKSTUAL TEZAURUSI
 
-Ulug'bek Hamdam asarlaridagi allyuziv nomlar va iqtiboslarning izohli web-tezaurusi.
+Ulug'bek Hamdam asarlaridagi allyuziv nomlar, iqtiboslar va maqollarning izohli web-tezaurusi.
 Arxitektura: [ARCHITECTURE.md](ARCHITECTURE.md) · Dizayn: [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md)
 
 ## Ishga tushirish
@@ -17,9 +17,10 @@ pip install -r requirements.txt
 python scripts/import_excel.py
 ```
 
-Standart holda Desktop'dagi `ilova allyuziv nom (2).xlsx` va `ilova Iqtibos (2).xlsx`
-fayllarini oladi. Boshqa joydan olish uchun:
-`python scripts/import_excel.py <allyuziv.xlsx> <iqtibos.xlsx>`
+Standart holda `excel-manba/` papkasidagi uchta faylni oladi:
+`ilova allyuziv nom.xlsx`, `ilova Iqtibos.xlsx`, `Maqol ilovam.xlsx`.
+Boshqa joydan olish uchun:
+`python scripts/import_excel.py <allyuziv.xlsx> <iqtibos.xlsx> <maqol.xlsx>`
 Import tugagach serverni qayta ishga tushiring — yangi ma'lumot ko'rinadi.
 
 ### 2. Backend (API)
@@ -60,7 +61,7 @@ terminal shart emas (footer'dagi "Admin" havolasi).
   `backend/data/admin_token.txt` fayli (git'ga kirmaydi) → standart `admin123`.
   O'z parolingizni o'rnatish uchun `backend/data/admin_token.txt` faylini
   yaratib, ichiga parolni yozing; deploy'da esa `ADMIN_TOKEN` ni o'rnating.
-- Import tanlangan turdagi (allyuziv nom / iqtibos) **barcha** yozuvlarni
+- Import tanlangan turdagi (allyuziv nom / iqtibos / maqol) **barcha** yozuvlarni
   fayldagi yangi ma'lumot bilan almashtiradi; boshqa turga tegilmaydi.
 - Fayl 24 ustunli standart sxemada bo'lishi kerak (mavjud ilova fayllari kabi).
 - Noto'g'ri tur tanlansa tizim ogohlantiradi (fayl ichidagi yorliqlar bo'yicha).

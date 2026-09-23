@@ -96,6 +96,7 @@ export default function CatalogPage() {
             filters?.types ?? [
               { value: "allyuziv-nom", count: undefined },
               { value: "iqtibos", count: undefined },
+              { value: "maqol", count: undefined },
             ]
           ).map((t) => ({
             value: t.value,
@@ -137,7 +138,7 @@ export default function CatalogPage() {
 
       {/* Natijalar */}
       {loading ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-label="Yuklanmoqda">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5" aria-label="Yuklanmoqda">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="flex flex-col gap-3 rounded-2xl border border-soft-200 p-5">
               <div className="skeleton h-6 w-2/3" />
@@ -152,7 +153,7 @@ export default function CatalogPage() {
         </div>
       ) : items.length > 0 ? (
         <>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
             {items.map((e) => (
               <EntryCard key={e.id} entry={e} />
             ))}
@@ -172,7 +173,7 @@ export default function CatalogPage() {
           {suggestions.length > 0 && (
             <>
               <p className="font-medium">Balki bularni izlagandirsiz:</p>
-              <div className="grid gap-4 text-left sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-4 text-left sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                 {suggestions.map((e) => (
                   <EntryCard key={e.id} entry={e} />
                 ))}

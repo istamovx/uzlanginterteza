@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { api, TYPE_LABELS, type EntrySummary, type Filters, type Stats } from "../api";
 import SearchBox from "../components/SearchBox";
 import StarOrnament from "../components/StarOrnament";
-import Badge from "../components/Badge";
+import Badge, { typeVariant } from "../components/Badge";
 
 const CHIP_COLORS = [
   "#335cff",
@@ -37,17 +37,17 @@ export default function HomePage() {
   return (
     <div className="flex flex-col gap-10 py-4 sm:gap-14 sm:py-10">
       {/* Hero + qidiruv */}
-      <section className="relative mx-auto flex w-full max-w-2xl flex-col items-center gap-6 text-center">
+      <section className="relative mx-auto flex w-full max-w-4xl flex-col items-center gap-6 text-center">
         {/* Bezak fon: yumshoq nur */}
         <div className="pointer-events-none absolute inset-x-0 -top-12 bottom-0 -z-10" aria-hidden>
           <div className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-primary-light/60 blur-3xl" />
         </div>
 
         <h1 className="anim-fade-up font-display text-[clamp(28px,6vw,48px)] font-semibold leading-tight tracking-tight">
-          O'zbek intertekstual <span className="anim-gradient-text">tezaurusi</span>
+          O‘ZBEK INTERTEKSTUAL <span className="anim-gradient-text">TEZAURUSI</span>
         </h1>
-        <p className="anim-fade-up anim-delay-100 max-w-xl text-lg text-sub">
-          Ulug'bek Hamdam asarlaridagi allyuziv nomlar va iqtiboslarning kelib
+        <p className="anim-fade-up anim-delay-100 max-w-2xl text-lg text-sub">
+          Ulug'bek Hamdam asarlaridagi allyuziv nomlar, iqtiboslar va maqollarning kelib
           chiqishi, ma'nosi va semantik munosabatlari — bir joyda.
         </p>
         <div className="anim-fade-up anim-delay-200 w-full">
@@ -77,13 +77,13 @@ export default function HomePage() {
                   {daily.unit}
                 </span>
                 <Badge
-                  variant={daily.type === "iqtibos" ? "type-iqtibos" : "type-allyuziv"}
+                  variant={typeVariant(daily.type)}
                 >
                   {TYPE_LABELS[daily.type]}
                 </Badge>
               </div>
               {daily.contextText && (
-                <p className="line-clamp-2 max-w-3xl italic text-sub">
+                <p className="line-clamp-2 italic text-sub">
                   «{daily.contextText}»
                 </p>
               )}
@@ -106,7 +106,7 @@ export default function HomePage() {
       )}
 
       {/* Tur kartalari */}
-      <section className="grid gap-4 sm:grid-cols-2">
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <Link
           to="/katalog?type=allyuziv-nom"
           className="group flex flex-col gap-2 rounded-2xl border border-soft-200 bg-primary-light/40 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
@@ -151,7 +151,7 @@ export default function HomePage() {
             Iqtiboslar
           </span>
           <span className="text-sub">
-            Boshqa manbadan olingan ko'chirma — she'r, hikmat, maqol va boshqalar
+            Boshqa manbadan olingan ko'chirma — she'r, hikmat, oyat va boshqalar
           </span>
           <span className="mt-2 flex items-end justify-between">
             <span className="font-display text-[clamp(28px,4vw,40px)] font-semibold leading-none text-feature">
@@ -159,6 +159,37 @@ export default function HomePage() {
             </span>
             <svg
               className="h-5 w-5 text-feature opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              aria-hidden
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-6-6 6 6-6 6" />
+            </svg>
+          </span>
+        </Link>
+        <Link
+          to="/katalog?type=maqol"
+          className="group flex flex-col gap-2 rounded-2xl border border-soft-200 bg-success-light/40 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+        >
+          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-success-light text-success-dark">
+            <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
+              <path d="M5 3h11a3 3 0 0 1 3 3v15l-4-2.5-4 2.5-4-2.5L3 21V5a2 2 0 0 1 2-2zm2 5v2h8V8H7zm0 4v2h6v-2H7z" />
+            </svg>
+          </span>
+          <span className="font-display text-xl font-semibold transition-colors group-hover:text-success-dark">
+            Maqollar
+          </span>
+          <span className="text-sub">
+            Asar matniga singdirilgan xalq maqollari — hikmat, pand va o'git
+          </span>
+          <span className="mt-2 flex items-end justify-between">
+            <span className="font-display text-[clamp(28px,4vw,40px)] font-semibold leading-none text-success-dark">
+              {stats?.byType["maqol"] ?? "—"}
+            </span>
+            <svg
+              className="h-5 w-5 text-success-dark opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"

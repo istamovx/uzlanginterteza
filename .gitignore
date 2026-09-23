@@ -12,3 +12,6 @@ backend/data/admin_token.txt
 # OS
 Thumbs.db
 .DS_Store
+
+# Maxfiy: ElevenLabs API kaliti
+backend/data/elevenlabs_key.txt

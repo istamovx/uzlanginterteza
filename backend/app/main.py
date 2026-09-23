@@ -9,8 +9,8 @@ from . import db
 from .routers import admin, entries, graph_router, search_router
 
 app = FastAPI(
-    title="O'zbek intertekstual tezaurusi API",
-    description="Ulug'bek Hamdam asarlaridagi allyuziv nomlar va iqtiboslar tezaurusi",
+    title="O‘ZBEK INTERTEKSTUAL TEZAURUSI API",
+    description="Ulug'bek Hamdam asarlaridagi allyuziv nomlar, iqtiboslar va maqollar tezaurusi",
     version="0.1.0",
 )
 

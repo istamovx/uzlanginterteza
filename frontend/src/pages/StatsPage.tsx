@@ -222,14 +222,14 @@ export default function StatsPage() {
         <h1 className="font-display text-[clamp(24px,4vw,32px)] font-semibold">
           Tezaurus statistikasi
         </h1>
-        <p className="max-w-2xl text-sub">
+        <p className="text-sub">
           Korpusdagi intertekstual birliklarning miqdoriy manzarasi — turlar,
           tanilish darajasi, semantik maydonlar va asarlar bo'yicha taqsimot.
         </p>
       </header>
 
       {/* Asosiy ko'rsatkichlar */}
-      <section className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <section className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
         <StatCard
           label="Jami birliklar"
           value={stats.total}
@@ -264,10 +264,21 @@ export default function StatsPage() {
           }
         />
         <StatCard
+          label="Maqollar"
+          value={stats.byType["maqol"] ?? 0}
+          color="#0b6b39"
+          bg="#e0faec"
+          icon={
+            <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
+              <path d="M5 3h11a3 3 0 0 1 3 3v15l-4-2.5-4 2.5-4-2.5L3 21V5a2 2 0 0 1 2-2zm2 5v2h8V8H7zm0 4v2h6v-2H7z" />
+            </svg>
+          }
+        />
+        <StatCard
           label="Kontekstual sinonimlar"
           value={stats.synonyms ?? "—"}
-          color="#1fc16b"
-          bg="#e0faec"
+          color="#ff8447"
+          bg="#fff1eb"
           icon={
             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
               <path d="M17 7h-3v2h3a3 3 0 1 1 0 6h-3v2h3a5 5 0 0 0 0-10zm-7 8H7a3 3 0 1 1 0-6h3V7H7a5 5 0 0 0 0 10h3v-2zm-2-4h8v2H8v-2z" />

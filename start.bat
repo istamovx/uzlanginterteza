@@ -1,5 +1,5 @@
 @echo off
-rem O'zbek intertekstual tezaurusi — bir bosishda ishga tushirish.
+rem O‘ZBEK INTERTEKSTUAL TEZAURUSI — bir bosishda ishga tushirish.
 rem Server 8000-portda ko'tariladi va brauzer ochiladi.
 
 cd /d "%~dp0backend"

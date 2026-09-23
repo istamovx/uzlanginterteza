@@ -1,6 +1,6 @@
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import type { EntryDetail } from "../api";
+import { TYPE_LABELS, type EntryDetail } from "../api";
 import TooltipLink from "./TooltipLink";
 
 /* "Layli va Majnun" diagrammasi uslubidagi uzellar ko'rinishi — interaktiv:
@@ -82,7 +82,7 @@ export default function NodeDiagram({ entry }: { entry: EntryDetail }) {
     content: (
       <>
         <Field
-          label={entry.type === "iqtibos" ? "Iqtibos" : "Allyuziv nom"}
+          label={TYPE_LABELS[entry.type]}
           value={entry.unit}
         />
         <Field label="Talaffuz" value={entry.pronunciations.join(" / ")} />

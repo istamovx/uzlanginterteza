@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { api, TYPE_LABELS, type AnalyzeResult } from "../api";
 import TooltipLink from "../components/TooltipLink";
-import Badge from "../components/Badge";
+import Badge, { typeVariant } from "../components/Badge";
 
 const SAMPLE = `Bu yoshlar, masalan, adabiyot ilmida Navoiy va Boburdek, Qodiriy va Cho'lpondek ulug' ijodkorlarning asarlarini tadqiq etish uchun kelishadi. Ulug' Navoiyning ko'pgina asarlarini «piri komil» talaba yoshlarning ongiga quyayotgandek edi. Sherlok Xolms bo'p ket-ey!`;
 
@@ -41,7 +41,9 @@ export default function AnalyzePage() {
           className={`rounded px-0.5 font-medium ${
             m.type === "iqtibos"
               ? "bg-feature-light text-feature"
-              : "bg-primary-light text-primary-darker"
+              : m.type === "maqol"
+                ? "bg-success-light text-success-dark"
+                : "bg-primary-light text-primary-darker"
           }`}
         >
           <TooltipLink entryId={m.entryId} text={analyzed.slice(m.start, m.end)} />
@@ -58,9 +60,9 @@ export default function AnalyzePage() {
         <h1 className="font-display text-[clamp(24px,4vw,32px)] font-semibold">
           Matn tahlili
         </h1>
-        <p className="max-w-2xl text-sub">
+        <p className="text-sub">
           Ixtiyoriy matnni joylang — tizim undagi tezaurusda mavjud
-          intertekstual birliklarni (allyuziv nomlar va iqtiboslarni) avtomatik
+          intertekstual birliklarni (allyuziv nomlar, iqtiboslar va maqollarni) avtomatik
           topib belgilaydi. Imlo va apostrof farqlari hisobga olinadi.
         </p>
       </div>
@@ -136,7 +138,7 @@ export default function AnalyzePage() {
                     </Link>
                     <span className="flex items-center gap-2">
                       <Badge
-                        variant={f.type === "iqtibos" ? "type-iqtibos" : "type-allyuziv"}
+                        variant={typeVariant(f.type)}
                       >
                         {TYPE_LABELS[f.type]}
                       </Badge>

@@ -15,12 +15,12 @@ from .normalize import clean, normalize
 
 DB_PATH = Path(__file__).resolve().parents[1] / "data" / "tezaurus.db"
 
-TYPE_PREFIX = {"allyuziv-nom": "an", "iqtibos": "iq"}
+TYPE_PREFIX = {"allyuziv-nom": "an", "iqtibos": "iq", "maqol": "mq"}
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS entries (
     id                  TEXT PRIMARY KEY,
-    type                TEXT NOT NULL,          -- 'allyuziv-nom' | 'iqtibos'
+    type                TEXT NOT NULL,          -- 'allyuziv-nom' | 'iqtibos' | 'maqol'
     unit                TEXT NOT NULL,
     unit_normalized     TEXT NOT NULL,
     pronunciations      TEXT NOT NULL,          -- JSON massiv
@@ -93,12 +93,15 @@ def rows_from_workbook(wb, type_: str) -> tuple[list[dict], dict]:
     """Ochilgan workbook'dan yozuvlarni o'qish.
 
     Qaytaradi: (entries, hint) — hint 3-ustundagi tur yorlig'i statistikasi
-    (fayl noto'g'ri turda yuklanganini aniqlash uchun).
+    (fayl noto'g'ri turda yuklanganini aniqlash uchun) va "duplicates" —
+    takrorlangan ID'lar ro'yxati (ular "-2", "-3" qo'shimchasi bilan saqlanadi).
     """
     prefix = TYPE_PREFIX[type_]
     ws = wb.active
     entries: list[dict] = []
-    hint = {"allyuziv-nom": 0, "iqtibos": 0}
+    hint: dict = {t: 0 for t in TYPE_PREFIX}
+    duplicates: list[str] = []
+    seen_ids: dict[str, int] = {}
     for row in ws.iter_rows(min_row=2, values_only=True):
         cells = [clean(c) for c in row[:24]]
         cells += [""] * (24 - len(cells))
@@ -113,8 +116,16 @@ def rows_from_workbook(wb, type_: str) -> tuple[list[dict], dict]:
             hint["allyuziv-nom"] += 1
         elif label.startswith("iqtibos"):
             hint["iqtibos"] += 1
+        elif label.startswith("maqol"):
+            hint["maqol"] += 1
+        # Excel'da ID ba'zan xato takrorlanadi — yozuv yo'qolmasin, qo'shimcha beriladi
+        entry_id = f"{prefix}-{rid}"
+        seen_ids[entry_id] = seen_ids.get(entry_id, 0) + 1
+        if seen_ids[entry_id] > 1:
+            duplicates.append(rid)
+            entry_id = f"{entry_id}-{seen_ids[entry_id]}"
         entries.append({
-            "id": f"{prefix}-{rid}",
+            "id": entry_id,
             "type": type_,
             "unit": unit,
             "unit_normalized": normalize(unit),
@@ -141,6 +152,7 @@ def rows_from_workbook(wb, type_: str) -> tuple[list[dict], dict]:
             "note": note,
             "is_complete": 1 if (src_desc or commentary or note) else 0,
         })
+    hint["duplicates"] = duplicates
     return entries, hint
 
 

@@ -6,6 +6,7 @@ const TOKEN_KEY = "adminToken";
 const TYPE_OPTIONS: { value: EntryType; desc: string }[] = [
   { value: "allyuziv-nom", desc: "«ilova allyuziv nom» fayli" },
   { value: "iqtibos", desc: "«ilova Iqtibos» fayli" },
+  { value: "maqol", desc: "«Maqol ilovam» fayli" },
 ];
 
 export default function AdminPage() {
@@ -134,7 +135,7 @@ export default function AdminPage() {
 
   /* ---- Asosiy panel ---- */
   return (
-    <div className="mx-auto flex w-full max-w-2xl flex-col gap-8 py-4">
+    <div className="flex w-full flex-col gap-8 py-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="font-display text-[clamp(24px,4vw,32px)] font-semibold">
           Admin panel
@@ -149,7 +150,7 @@ export default function AdminPage() {
 
       {/* Joriy holat */}
       {stats && (
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           <div className="flex flex-col items-center gap-1 rounded-2xl border border-soft-200 p-4 text-center">
             <span className="font-display text-2xl font-semibold">{stats.total}</span>
             <span className="text-sub">Jami birlik</span>
@@ -166,6 +167,12 @@ export default function AdminPage() {
             </span>
             <span className="text-sub">Iqtibos</span>
           </div>
+          <div className="flex flex-col items-center gap-1 rounded-2xl border border-soft-200 p-4 text-center">
+            <span className="font-display text-2xl font-semibold text-success-dark">
+              {stats.byType["maqol"] ?? 0}
+            </span>
+            <span className="text-sub">Maqol</span>
+          </div>
         </div>
       )}
 
@@ -181,7 +188,7 @@ export default function AdminPage() {
         </div>
 
         {/* Tur tanlash */}
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid gap-3 sm:grid-cols-3">
           {TYPE_OPTIONS.map((t) => (
             <button
               key={t.value}
@@ -285,7 +292,8 @@ export default function AdminPage() {
             <p className="text-sub">
               Bazada endi jami {report.total} ta birlik:{" "}
               {report.byType["allyuziv-nom"] ?? 0} allyuziv nom,{" "}
-              {report.byType["iqtibos"] ?? 0} iqtibos.
+              {report.byType["iqtibos"] ?? 0} iqtibos,{" "}
+              {report.byType["maqol"] ?? 0} maqol.
             </p>
             {report.warnings.map((w, i) => (
               <p key={i} className="text-warning">

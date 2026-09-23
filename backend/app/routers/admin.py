@@ -31,7 +31,7 @@ def _load_token() -> str:
 
 ADMIN_TOKEN = _load_token()
 
-TYPE_LABELS = {"allyuziv-nom": "Allyuziv nomlar", "iqtibos": "Iqtiboslar"}
+TYPE_LABELS = {"allyuziv-nom": "Allyuziv nomlar", "iqtibos": "Iqtiboslar", "maqol": "Maqollar"}
 
 
 def require_token(x_admin_token: str = Header(default="")) -> None:
@@ -74,19 +74,18 @@ async def import_excel(
 
     # 3-ustundagi yorliq tanlangan turga zid bo'lsa — ogohlantirish (import baribir bajariladi)
     warnings: list[str] = []
-    other = "iqtibos" if type == "allyuziv-nom" else "allyuziv-nom"
+    other = max((t for t in TYPE_PREFIX if t != type), key=lambda t: hint[t])
     if hint[other] > hint[type]:
         warnings.append(
             f"Diqqat: fayl ichidagi yorliqlar ko'proq «{TYPE_LABELS[other]}» turiga o'xshaydi, "
             f"siz esa «{TYPE_LABELS[type]}» sifatida yukladingiz."
         )
 
-    # ID takrorlarini tekshirish
-    dup = [i for i, n in Counter(e["id"] for e in entries).items() if n > 1]
-    if dup:
-        raise HTTPException(
-            status_code=400,
-            detail=f"Faylda ID takrorlangan: {', '.join(d.split('-', 1)[1] for d in dup[:5])}",
+    # Takrorlangan ID'lar importni to'xtatmaydi — yozuvlar alohida ID bilan saqlanadi
+    if hint["duplicates"]:
+        warnings.append(
+            f"Faylda ID takrorlangan: {', '.join(hint['duplicates'][:5])} — "
+            "ikkala yozuv ham saqlandi, lekin Excel'da ID'ni tuzatish tavsiya etiladi."
         )
 
     replace_type(entries, type)

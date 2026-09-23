@@ -1,4 +1,4 @@
-# O'zbek intertekstual tezaurusi — bitta konteyner (Render / Railway / Fly / VPS).
+# O‘ZBEK INTERTEKSTUAL TEZAURUSI — bitta konteyner (Render / Railway / Fly / VPS).
 # 1-bosqich: frontend build
 FROM node:22-alpine AS frontend
 WORKDIR /app/frontend
