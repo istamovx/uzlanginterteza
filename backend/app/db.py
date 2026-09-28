@@ -1,22 +1,19 @@
-"""SQLite'dan yozuvlarni o'qish va xotirada keshlash.
+"""Bazadan (SQLite yoki PostgreSQL) yozuvlarni o'qish va xotirada keshlash.
 
 Baza kichik (~100 yozuv), shuning uchun hammasi startupda bir marta o'qiladi.
 API javob shakli (camelCase) shu yerda quriladi — routerlar bazaviy tuzilishni bilmaydi.
 """
 
 import json
-import sqlite3
-from pathlib import Path
 
+from . import database
 from .normalize import normalize
-
-DB_PATH = Path(__file__).resolve().parents[1] / "data" / "tezaurus.db"
 
 _entries: list[dict] = []
 _by_id: dict[str, dict] = {}
 
 
-def _row_to_entry(row: sqlite3.Row) -> dict:
+def _row_to_entry(row) -> dict:
     return {
         "id": row["id"],
         "type": row["type"],
@@ -60,14 +57,14 @@ def _row_to_entry(row: sqlite3.Row) -> dict:
 
 def load() -> None:
     global _entries, _by_id
-    if not DB_PATH.exists():
-        raise RuntimeError(
-            f"Baza topilmadi: {DB_PATH}. Avval `python scripts/import_excel.py` ishga tushiring."
-        )
-    con = sqlite3.connect(DB_PATH)
-    con.row_factory = sqlite3.Row
-    rows = con.execute("SELECT * FROM entries ORDER BY unit_normalized").fetchall()
-    con.close()
+    database.ensure_ready()
+    con = database.connect()
+    try:
+        rows = database.fetch_all(con)
+    finally:
+        con.close()
+    # tartiblash Python'da — SQLite va PostgreSQL collation farqi natijaga ta'sir qilmasin
+    rows = sorted(rows, key=lambda r: r["unit_normalized"])
     _entries = [_row_to_entry(r) for r in rows]
     _by_id = {e["id"]: e for e in _entries}
 

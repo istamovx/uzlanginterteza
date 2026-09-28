@@ -69,13 +69,13 @@ Birlik
 | Qatlam | Tanlov | Sabab |
 |---|---|---|
 | Backend | **Python + FastAPI** | Til bilan ishlashda kuchli ekotizim (normalizatsiya, fuzzy qidiruv, keyinchalik NLP); avtomatik API hujjatlar (Swagger) |
-| Baza | **SQLite** | ~103 yozuv uchun yetarli, alohida server talab qilmaydi, bitta fayl; kelajakda PostgreSQL'ga o'tish oson |
-| Import | **openpyxl** bilan import skripti | Excel → tozalash → SQLite; fayl yangilanganda qayta ishga tushiriladi |
+| Baza | **PostgreSQL** (Render) / **SQLite** (lokal) | Internetda PostgreSQL — admin import deploy'lar orasida saqlanadi; lokalda SQLite — bitta fayl, server talab qilmaydi. `DATABASE_URL` bo'yicha avtomatik tanlanadi (`app/database.py`) |
+| Import | **openpyxl** bilan import skripti + admin panel | Excel → tozalash → baza; saytdagi `/admin` yoki `scripts/import_excel.py` |
 | Qidiruv | **rapidfuzz** (server tomonda, fuzzy) | Apostrof/imlo farqlariga chidamli; Python'da normalizatsiya markazlashadi |
 | Frontend | **React + Vite + TypeScript** | Komponentli UI, tez dev-server, dizayn-sistemani qulay joriy qilish |
 | Dizayn | **Align UI 2.0** + Tailwind CSS v4 | Foydalanuvchi bergan Figma dizayn-sistema; tokenlar DESIGN_SYSTEM.md'da |
 | Routing | React Router | Har bir birlikning o'z URL'i bo'ladi — ulashish mumkin |
-| Deploy | Backend: Render / Railway / PythonAnywhere / VPS; Frontend: shu backend'dan static sifatida yoki Netlify | FastAPI static fayllarni ham o'zi tarqata oladi — bitta server yetadi |
+| Deploy | **Render**: Web Service (Docker) + PostgreSQL Database, `render.yaml` Blueprint | FastAPI frontend build'ni ham o'zi tarqatadi — bitta web servis yetadi |
 
 **Nega backend bilan:** til bo'yicha ishlov (talaffuz variantlarini qidiruvga qo'shish,
 o'zbek apostrof normalizatsiyasi, fuzzy moslik, keyinchalik lemmatizatsiya/NLP) Python'da
@@ -96,9 +96,10 @@ backend/
 │   ├── services/
 │   │   ├── normalize.py   # apostrof/registr normalizatsiyasi (uz-lotin)
 │   │   └── search.py      # rapidfuzz qidiruv mantiqi
-│   └── db.py              # SQLite ulanish
+│   ├── database.py        # ulanish: PostgreSQL (DATABASE_URL) yoki SQLite
+│   └── db.py              # yozuvlarni o'qish va keshlash
 ├── scripts/
-│   └── import_excel.py    # Excel → SQLite (tozalash shu yerda)
+│   └── import_excel.py    # Excel → baza (tozalash app/importer.py da)
 ├── data/
 │   └── tezaurus.db
 └── requirements.txt

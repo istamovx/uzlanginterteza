@@ -1,52 +1,18 @@
-"""Excel → SQLite import mantig'i.
+"""Excel → baza (SQLite yoki PostgreSQL) import mantig'i.
 
 CLI skript (scripts/import_excel.py) va admin API (routers/admin.py)
 ikkalasi shu moduldan foydalanadi — parsing va tozalash bir joyda turadi.
 """
 
 import json
-import sqlite3
 from io import BytesIO
-from pathlib import Path
 
 import openpyxl
 
+from . import database
 from .normalize import clean, normalize
 
-DB_PATH = Path(__file__).resolve().parents[1] / "data" / "tezaurus.db"
-
 TYPE_PREFIX = {"allyuziv-nom": "an", "iqtibos": "iq", "maqol": "mq"}
-
-SCHEMA = """
-CREATE TABLE IF NOT EXISTS entries (
-    id                  TEXT PRIMARY KEY,
-    type                TEXT NOT NULL,          -- 'allyuziv-nom' | 'iqtibos' | 'maqol'
-    unit                TEXT NOT NULL,
-    unit_normalized     TEXT NOT NULL,
-    pronunciations      TEXT NOT NULL,          -- JSON massiv
-    context_text        TEXT NOT NULL,
-    intertext_author    TEXT NOT NULL,
-    intertext_work      TEXT NOT NULL,
-    intertext_genre     TEXT NOT NULL,
-    intertext_year      TEXT NOT NULL,
-    intertext_publisher TEXT NOT NULL,
-    intertext_page      TEXT NOT NULL,
-    source_description  TEXT NOT NULL,
-    source_author       TEXT NOT NULL,
-    source_work         TEXT NOT NULL,
-    source_genre        TEXT NOT NULL,
-    source_publisher    TEXT NOT NULL,
-    source_period       TEXT NOT NULL,
-    recognition         TEXT NOT NULL,          -- 'yadro' | 'periferiya' | ''
-    commentary          TEXT NOT NULL,
-    semantic_field      TEXT NOT NULL,
-    synonyms            TEXT NOT NULL,          -- JSON massiv
-    hypernym            TEXT NOT NULL,
-    hyponym             TEXT NOT NULL,
-    note                TEXT NOT NULL,
-    is_complete         INTEGER NOT NULL        -- asl manba/sharh to'ldirilganmi
-);
-"""
 
 
 def parse_recognition(value: str) -> str:
@@ -172,23 +138,13 @@ def read_rows_from_bytes(data: bytes, type_: str) -> tuple[list[dict], dict]:
         wb.close()
 
 
-def _insert(con: sqlite3.Connection, entries: list[dict]) -> None:
-    cols = list(entries[0].keys())
-    con.executemany(
-        f"INSERT INTO entries ({','.join(cols)}) VALUES ({','.join('?' * len(cols))})",
-        [tuple(e[c] for c in cols) for e in entries],
-    )
-
-
 def rebuild(all_entries: list[dict]) -> None:
     """Bazani noldan qurish (CLI skript uchun)."""
-    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-    if DB_PATH.exists():
-        DB_PATH.unlink()
-    con = sqlite3.connect(DB_PATH)
+    con = database.connect()
     try:
-        con.executescript(SCHEMA)
-        _insert(con, all_entries)
+        con.execute("DROP TABLE IF EXISTS entries")
+        con.execute(database.SCHEMA)
+        database.insert_entries(con, all_entries)
         con.commit()
     finally:
         con.close()
@@ -197,12 +153,11 @@ def rebuild(all_entries: list[dict]) -> None:
 def replace_type(entries: list[dict], type_: str) -> None:
     """Bitta tur yozuvlarini yangilash: eski shu turdagilar o'chib,
     yangilari yoziladi; boshqa tur yozuvlari saqlanadi (tranzaksiyada)."""
-    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-    con = sqlite3.connect(DB_PATH)
+    con = database.connect()
     try:
-        con.executescript(SCHEMA)
-        con.execute("DELETE FROM entries WHERE type = ?", (type_,))
-        _insert(con, entries)
+        con.execute(database.SCHEMA)
+        con.execute(f"DELETE FROM entries WHERE type = {database.PH}", (type_,))
+        database.insert_entries(con, entries)
         con.commit()
     except Exception:
         con.rollback()

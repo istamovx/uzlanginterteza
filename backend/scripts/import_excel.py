@@ -13,7 +13,8 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from app.importer import DB_PATH, TYPE_PREFIX, read_rows_from_path, rebuild  # noqa: E402
+from app.database import IS_POSTGRES, SQLITE_PATH  # noqa: E402
+from app.importer import TYPE_PREFIX, read_rows_from_path, rebuild  # noqa: E402
 
 SOURCE_DIR = Path(__file__).resolve().parents[2] / "excel-manba"
 DEFAULT_FILES = [
@@ -36,7 +37,8 @@ def main() -> None:
 
     rebuild(all_entries)
     complete = sum(e["is_complete"] for e in all_entries)
-    print(f"Jami: {len(all_entries)} ta yozuv bazaga yozildi ({complete} ta to'liq), baza: {DB_PATH}")
+    target = "PostgreSQL (DATABASE_URL)" if IS_POSTGRES else SQLITE_PATH
+    print(f"Jami: {len(all_entries)} ta yozuv bazaga yozildi ({complete} ta to'liq), baza: {target}")
 
 
 if __name__ == "__main__":

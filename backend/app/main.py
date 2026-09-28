@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from . import db
+from . import database, db
 from .routers import admin, entries, graph_router, search_router
 
 app = FastAPI(
@@ -30,6 +30,16 @@ app.include_router(admin.router, prefix="/api", tags=["admin"])
 @app.on_event("startup")
 def startup() -> None:
     db.load()
+
+
+@app.get("/api/health", tags=["system"])
+def health():
+    """Render health check: server tirik va baza o'qilgan."""
+    return {
+        "status": "ok",
+        "database": "postgresql" if database.IS_POSTGRES else "sqlite",
+        "entries": len(db.all_entries()),
+    }
 
 
 # Frontend build (production): backend o'zi tarqatadi, bitta server yetadi

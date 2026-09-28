@@ -1,0 +1,34 @@
+# O‘ZBEK INTERTEKSTUAL TEZAURUSI — Render Blueprint.
+# Render → New → Blueprint → shu repo tanlanadi; ikkala servis birga yaratiladi.
+#
+#   tezaurus-web  — Web Service (Docker): React build + FastAPI, sayt va REST API
+#   tezaurus-db   — PostgreSQL Database: admin paneldan yuklangan ma'lumot saqlanadi
+#
+# Birinchi ishga tushishda bo'sh PostgreSQL repodagi SQLite fayldan avtomatik
+# to'ldiriladi (backend/app/database.py → ensure_ready).
+
+services:
+  - type: web
+    name: tezaurus-web
+    runtime: docker
+    plan: free
+    region: frankfurt          # O'zbekistonga eng yaqin Render mintaqasi
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    autoDeploy: true           # main'ga har push'da avtomatik deploy
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: tezaurus-db
+          property: connectionString   # ichki (internal) ulanish manzili
+      - key: ADMIN_TOKEN
+        sync: false            # Blueprint yaratilayotganda Render so'raydi — o'z parolingizni kiriting
+
+databases:
+  - name: tezaurus-db
+    plan: free
+    region: frankfurt          # web servis bilan bir mintaqada bo'lishi shart
+    databaseName: tezaurus
+    user: tezaurus
+    postgresMajorVersion: "16"
+    ipAllowList: []            # tashqaridan ulanish yopiq — faqat Render ichidagi web servis
