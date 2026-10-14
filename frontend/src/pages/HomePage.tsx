@@ -109,7 +109,7 @@ export default function HomePage() {
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <Link
           to="/katalog?type=allyuziv-nom"
-          className="group flex flex-col gap-2 rounded-2xl border border-soft-200 bg-primary-light/40 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+          className="group flex flex-col gap-2 rounded-2xl border border-soft-200 bg-white-0 p-6 hover:border-primary/40 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
         >
           <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-light text-primary">
             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
@@ -140,7 +140,7 @@ export default function HomePage() {
         </Link>
         <Link
           to="/katalog?type=iqtibos"
-          className="group flex flex-col gap-2 rounded-2xl border border-soft-200 bg-feature-light/40 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+          className="group flex flex-col gap-2 rounded-2xl border border-soft-200 bg-white-0 p-6 hover:border-feature/40 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
         >
           <span className="flex h-10 w-10 items-center justify-center rounded-full bg-feature-light text-feature">
             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
@@ -171,7 +171,7 @@ export default function HomePage() {
         </Link>
         <Link
           to="/katalog?type=maqol"
-          className="group flex flex-col gap-2 rounded-2xl border border-soft-200 bg-success-light/40 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+          className="group flex flex-col gap-2 rounded-2xl border border-soft-200 bg-white-0 p-6 hover:border-success/40 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
         >
           <span className="flex h-10 w-10 items-center justify-center rounded-full bg-success-light text-success-dark">
             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
@@ -239,7 +239,7 @@ export default function HomePage() {
               <Link
                 key={l}
                 to={`/katalog?letter=${encodeURIComponent(l)}`}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-soft-200 font-medium text-sub transition-all hover:border-primary hover:bg-primary hover:text-white-0"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-soft-200 bg-white-0 font-medium text-sub transition-all hover:border-primary hover:bg-primary hover:text-white-0"
               >
                 {l}
               </Link>

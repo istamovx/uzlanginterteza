@@ -142,7 +142,7 @@ export default function AdminPage() {
         </h1>
         <button
           onClick={logout}
-          className="rounded-full border border-soft-200 px-4 py-1.5 font-medium text-sub transition-colors hover:border-error hover:text-error"
+          className="rounded-full border border-soft-200 bg-white-0 px-4 py-1.5 font-medium text-sub transition-colors hover:border-error hover:text-error"
         >
           Chiqish
         </button>
@@ -196,8 +196,8 @@ export default function AdminPage() {
               onClick={() => setType(t.value)}
               className={`flex flex-col gap-1 rounded-2xl border p-4 text-left transition-colors ${
                 type === t.value
-                  ? "border-primary bg-primary-light/40"
-                  : "border-soft-200 hover:border-disabled"
+                  ? "border-primary bg-primary-light"
+                  : "border-soft-200 bg-white-0 hover:border-disabled"
               }`}
               aria-pressed={type === t.value}
             >
@@ -234,8 +234,8 @@ export default function AdminPage() {
           onClick={() => fileInput.current?.click()}
           className={`flex cursor-pointer flex-col items-center gap-2 rounded-2xl border-2 border-dashed p-8 text-center transition-colors ${
             dragOver
-              ? "border-primary bg-primary-light/40"
-              : "border-soft-200 hover:border-primary/50"
+              ? "border-primary bg-primary-light"
+              : "border-soft-200 bg-white-0 hover:border-primary/50"
           }`}
           role="button"
           tabIndex={0}
