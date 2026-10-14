@@ -14,7 +14,7 @@ export default function App() {
   return (
     <div className="flex min-h-dvh flex-col">
       <Header />
-      <main className="w-full flex-1 py-6 px-4 sm:px-6 lg:px-10 2xl:px-16">
+      <main className="mx-auto w-full max-w-6xl flex-1 py-6 px-4 sm:px-6 lg:px-8">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/birlik/:id" element={<EntryPage />} />

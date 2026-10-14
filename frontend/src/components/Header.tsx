@@ -34,7 +34,7 @@ export default function Header() {
         <div className="absolute inset-0 bg-gradient-to-r from-primary-light/70 via-transparent to-feature-light/60" />
       </div>
 
-      <div className="relative flex w-full items-center justify-between gap-4 py-3 px-4 sm:px-6 lg:px-10 2xl:px-16">
+      <div className="relative mx-auto flex w-full max-w-6xl items-center justify-between gap-4 py-3 px-4 sm:px-6 lg:px-8">
         <Link
           to="/"
           className="flex min-w-0 items-center gap-2 font-display text-lg font-semibold tracking-tight"

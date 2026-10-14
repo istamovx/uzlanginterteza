@@ -138,9 +138,9 @@ export default function CatalogPage() {
 
       {/* Natijalar */}
       {loading ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5" aria-label="Yuklanmoqda">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-label="Yuklanmoqda">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="flex flex-col gap-3 rounded-2xl border border-soft-200 p-5">
+            <div key={i} className="flex flex-col gap-3 rounded-2xl border border-soft-200 bg-white-0 p-5">
               <div className="skeleton h-6 w-2/3" />
               <div className="skeleton h-4 w-full" />
               <div className="skeleton h-4 w-5/6" />
@@ -153,7 +153,7 @@ export default function CatalogPage() {
         </div>
       ) : items.length > 0 ? (
         <>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {items.map((e) => (
               <EntryCard key={e.id} entry={e} />
             ))}
@@ -173,7 +173,7 @@ export default function CatalogPage() {
           {suggestions.length > 0 && (
             <>
               <p className="font-medium">Balki bularni izlagandirsiz:</p>
-              <div className="grid gap-4 text-left sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+              <div className="grid gap-4 text-left sm:grid-cols-2 lg:grid-cols-3">
                 {suggestions.map((e) => (
                   <EntryCard key={e.id} entry={e} />
                 ))}

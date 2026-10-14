@@ -51,7 +51,7 @@ function StatCard({
   const animated = useCountUp(typeof value === "number" ? value : 0);
   const shown = typeof value === "number" ? animated : value;
   return (
-    <div className="flex flex-col items-center gap-2 rounded-2xl border border-soft-200 p-5 text-center">
+    <div className="flex flex-col items-center gap-2 rounded-2xl border border-soft-200 bg-white-0 p-5 text-center">
       <span
         className="flex h-11 w-11 items-center justify-center rounded-full"
         style={{ color, background: bg }}
@@ -151,7 +151,7 @@ function Donut({
         >
           {centerValue}
         </text>
-        <text x="90" y="108" textAnchor="middle" fontSize="14" fill="#5c5c5c">
+        <text x="90" y="108" textAnchor="middle" fontSize="16" fill="#5c5c5c">
           {centerLabel}
         </text>
       </svg>
@@ -182,7 +182,7 @@ function ChartCard({
   children: React.ReactNode;
 }) {
   return (
-    <section className="flex flex-col gap-5 rounded-2xl border border-soft-200 p-5 sm:p-6">
+    <section className="flex flex-col gap-5 rounded-2xl border border-soft-200 bg-white-0 p-5 sm:p-6">
       <h2 className="font-display text-xl font-semibold">{title}</h2>
       {children}
     </section>
@@ -370,7 +370,7 @@ export default function StatsPage() {
               <Link
                 key={h.value}
                 to={`/katalog?hypernym=${encodeURIComponent(h.value)}`}
-                className="group flex flex-col items-center gap-2 rounded-2xl border border-soft-200 p-4 text-center transition-shadow hover:shadow-md"
+                className="group flex flex-col items-center gap-2 rounded-2xl border border-soft-200 bg-white-0 p-4 text-center transition-shadow hover:shadow-md"
               >
                 <span
                   className="flex h-12 w-12 items-center justify-center rounded-full font-display text-lg font-semibold"

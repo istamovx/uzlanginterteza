@@ -105,7 +105,7 @@ export default function AnalyzePage() {
       {result && (
         <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
           {/* Belgilangan matn */}
-          <section className="flex flex-col gap-3 rounded-2xl border border-soft-200 p-5 sm:p-6">
+          <section className="flex flex-col gap-3 rounded-2xl border border-soft-200 bg-white-0 p-5 sm:p-6">
             <h2 className="font-display text-xl font-semibold">
               Belgilangan matn
             </h2>
@@ -120,7 +120,7 @@ export default function AnalyzePage() {
           </section>
 
           {/* Topilganlar ro'yxati */}
-          <aside className="flex h-fit flex-col gap-3 rounded-2xl border border-soft-200 p-5">
+          <aside className="flex h-fit flex-col gap-3 rounded-2xl border border-soft-200 bg-white-0 p-5">
             <h2 className="font-display text-xl font-semibold">
               Topildi: {result.found.length} ta birlik
             </h2>

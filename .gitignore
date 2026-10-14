@@ -15,3 +15,6 @@ Thumbs.db
 
 # Maxfiy: ElevenLabs API kaliti
 backend/data/elevenlabs_key.txt
+
+# Brauzer test skrinshotlari
+.playwright-mcp/

@@ -79,7 +79,7 @@ export default function AboutPage() {
           <StarOrnament className="h-5 w-5 text-primary/60" />
           <h2 className="font-display text-xl font-semibold">Korpus asarlari</h2>
         </div>
-        <ul className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-4 xl:grid-cols-8">
+        <ul className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-4">
           {BOOKS.map((b) => (
             <li key={b.title} className="flex flex-col gap-2">
               <div className="aspect-[2/3] overflow-hidden rounded-lg border border-soft-200 shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
@@ -97,7 +97,7 @@ export default function AboutPage() {
                     className="flex h-full w-full flex-col justify-between p-4 text-white-0"
                     style={{ background: `linear-gradient(160deg, ${b.tint}, #171717)` }}
                   >
-                    <span className="text-xs uppercase tracking-widest opacity-80">
+                    <span className="uppercase tracking-wider opacity-80">
                       Ulug‘bek Hamdam
                     </span>
                     <span className="font-display text-xl font-semibold leading-tight">
@@ -129,11 +129,11 @@ export default function AboutPage() {
           Har bir birlik sakkiz uzeldan iborat ilmiy model asosida tahlil
           qilinadi:
         </p>
-        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-3 sm:grid-cols-2">
           {NODES.map((n) => (
             <div
               key={n.name}
-              className="flex flex-col gap-1 rounded-2xl border border-soft-200 p-4 transition-shadow hover:shadow-md"
+              className="flex flex-col gap-1 rounded-2xl border border-soft-200 bg-white-0 p-4 transition-shadow hover:shadow-md"
             >
               <div className="flex items-center gap-2.5">
                 <span

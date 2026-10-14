@@ -60,7 +60,7 @@ export default function HomePage() {
         <section className="anim-fade-up anim-delay-300">
           <Link
             to={`/birlik/${daily.id}`}
-            className="group relative block overflow-hidden rounded-2xl border border-soft-200 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg sm:p-8"
+            className="group relative block overflow-hidden rounded-2xl border border-soft-200 bg-white-0 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg sm:p-8"
           >
             <div className="pointer-events-none absolute inset-0" aria-hidden>
               <div className="absolute inset-0 bg-gradient-to-br from-primary-light/60 via-transparent to-highlight-light/50" />

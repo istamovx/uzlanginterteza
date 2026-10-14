@@ -13,7 +13,7 @@ const pages = [
 export default function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-soft-200 bg-weak-50">
-      <div className="relative grid w-full gap-8 py-10 sm:grid-cols-3 px-4 sm:px-6 lg:px-10 2xl:px-16">
+      <div className="relative mx-auto grid w-full max-w-6xl gap-8 py-10 sm:grid-cols-3 px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-3">
           <div className="flex items-center gap-2 font-display font-semibold">
             <StarOrnament className="h-4 w-4 text-primary" />
@@ -49,7 +49,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="relative border-t border-soft-200">
-        <div className="flex w-full items-center justify-between gap-4 py-4 text-sub px-4 sm:px-6 lg:px-10 2xl:px-16">
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 py-4 text-sub px-4 sm:px-6 lg:px-8">
           <p>
             © {new Date().getFullYear()} O‘ZBEK INTERTEKSTUAL TEZAURUSI ·
             O'rinova Zarifa

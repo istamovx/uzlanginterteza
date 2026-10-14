@@ -103,7 +103,7 @@ export default function EntryPage() {
   if (!entry) {
     return (
       <div className="flex w-full flex-col gap-6 py-2" aria-label="Yuklanmoqda">
-        <div className="flex flex-col gap-4 rounded-2xl border border-soft-200 p-6 sm:p-8">
+        <div className="flex flex-col gap-4 rounded-2xl border border-soft-200 bg-white-0 p-6 sm:p-8">
           <div className="skeleton h-9 w-1/2" />
           <div className="skeleton h-5 w-1/3" />
           <div className="flex gap-2">
@@ -131,7 +131,7 @@ export default function EntryPage() {
   return (
     <article className="anim-fade-up flex w-full flex-col gap-7 py-2">
       {/* Sarlavha bloki — girih naqshli karta */}
-      <header className="relative overflow-hidden rounded-2xl border border-soft-200 p-6 sm:p-8">
+      <header className="relative overflow-hidden rounded-2xl border border-soft-200 bg-white-0 p-6 sm:p-8">
         <div className="pointer-events-none absolute inset-0" aria-hidden>
           <div className="absolute inset-0 bg-gradient-to-br from-primary-light/50 via-transparent to-feature-light/40" />
         </div>
@@ -240,7 +240,7 @@ export default function EntryPage() {
           {/* Asl manba */}
           {(src.author || src.work || src.period) && (
             <Section icon={ICONS.manba} title="Asl manba" color="#1fc16b" bg="#e0faec">
-              <dl className="flex flex-col rounded-2xl border border-soft-200 px-5 py-2">
+              <dl className="flex flex-col rounded-2xl border border-soft-200 bg-white-0 px-5 py-2">
                 <SourceRow label="Muallif" value={src.author} />
                 <SourceRow label="Asar" value={src.work} />
                 <SourceRow label="Janr" value={src.genre} />
@@ -265,7 +265,7 @@ export default function EntryPage() {
               color="#47c2ff"
               bg="#ebf8ff"
             >
-              <div className="grid gap-4 rounded-2xl border border-soft-200 p-5 sm:grid-cols-3">
+              <div className="grid gap-4 rounded-2xl border border-soft-200 bg-white-0 p-5 sm:grid-cols-3">
                 <div className="flex flex-col gap-2">
                   <h3 className="font-medium text-sub">Kontekstual sinonimlar</h3>
                   {entry.synonymsLinked.length > 0 ? (
@@ -330,7 +330,7 @@ export default function EntryPage() {
                   Shu guruhdagi boshqa birliklar
                 </h2>
               </div>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {entry.related.map((e) => (
                   <EntryCard key={e.id} entry={e} />
                 ))}

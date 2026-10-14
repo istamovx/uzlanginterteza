@@ -14,6 +14,7 @@
   --color-disabled: #d1d1d1;
 
   /* background / stroke */
+  --color-page: #eef0f4;           /* sahifa foni — kartalardan biroz to'qroq */
   --color-white-0: #ffffff;
   --color-weak-50: #f7f7f7;
   --color-soft-200: #ebebeb;
@@ -43,13 +44,19 @@
   --radius-16: 16px;
   --radius-full: 999px;
 
-  /* shrift shkalasi — 16px dan kichik yo'q */
-  --text-base: 16px;
-  --text-base--line-height: 24px;
-  --text-lg: 18px;
-  --text-lg--line-height: 28px;
-  --text-xl: 20px;
-  --text-xl--line-height: 28px;
+  /* shrift shkalasi — 16px dan kichik yo'q (xs/sm ham 16px ga ko'tarilgan) */
+  --text-xs: 16px;
+  --text-xs--line-height: 24px;
+  --text-sm: 16px;
+  --text-sm--line-height: 24px;
+  --text-base: 17px;
+  --text-base--line-height: 27px;
+  --text-lg: 19px;
+  --text-lg--line-height: 30px;
+  --text-xl: 22px;
+  --text-xl--line-height: 30px;
+  --text-2xl: 26px;
+  --text-2xl--line-height: 34px;
 }
 
 html {
@@ -60,10 +67,10 @@ html {
 }
 
 body {
-  background: var(--color-white-0);
+  background: var(--color-page);
   min-height: 100dvh;
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 17px;
+  line-height: 1.6;
 }
 
 /* ===== Bezak va animatsiyalar (header + bosh sahifa) ===== */

@@ -151,23 +151,23 @@ export default function AdminPage() {
       {/* Joriy holat */}
       {stats && (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          <div className="flex flex-col items-center gap-1 rounded-2xl border border-soft-200 p-4 text-center">
+          <div className="flex flex-col items-center gap-1 rounded-2xl border border-soft-200 bg-white-0 p-4 text-center">
             <span className="font-display text-2xl font-semibold">{stats.total}</span>
             <span className="text-sub">Jami birlik</span>
           </div>
-          <div className="flex flex-col items-center gap-1 rounded-2xl border border-soft-200 p-4 text-center">
+          <div className="flex flex-col items-center gap-1 rounded-2xl border border-soft-200 bg-white-0 p-4 text-center">
             <span className="font-display text-2xl font-semibold text-primary">
               {stats.byType["allyuziv-nom"] ?? 0}
             </span>
             <span className="text-sub">Allyuziv nom</span>
           </div>
-          <div className="flex flex-col items-center gap-1 rounded-2xl border border-soft-200 p-4 text-center">
+          <div className="flex flex-col items-center gap-1 rounded-2xl border border-soft-200 bg-white-0 p-4 text-center">
             <span className="font-display text-2xl font-semibold text-feature">
               {stats.byType["iqtibos"] ?? 0}
             </span>
             <span className="text-sub">Iqtibos</span>
           </div>
-          <div className="flex flex-col items-center gap-1 rounded-2xl border border-soft-200 p-4 text-center">
+          <div className="flex flex-col items-center gap-1 rounded-2xl border border-soft-200 bg-white-0 p-4 text-center">
             <span className="font-display text-2xl font-semibold text-success-dark">
               {stats.byType["maqol"] ?? 0}
             </span>
@@ -177,7 +177,7 @@ export default function AdminPage() {
       )}
 
       {/* Import bloki */}
-      <section className="flex flex-col gap-5 rounded-2xl border border-soft-200 p-5 sm:p-6">
+      <section className="flex flex-col gap-5 rounded-2xl border border-soft-200 bg-white-0 p-5 sm:p-6">
         <div className="flex flex-col gap-1">
           <h2 className="font-display text-xl font-semibold">Excel import</h2>
           <p className="text-sub">

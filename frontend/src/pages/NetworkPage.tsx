@@ -255,7 +255,7 @@ export default function NetworkPage() {
             masshtab, sudrash — surish, tugun ustiga boring yoki bosing.
           </p>
         </div>
-        <div className="flex max-w-full overflow-x-auto rounded-full border border-soft-200 p-1">
+        <div className="flex max-w-full overflow-x-auto rounded-full border border-soft-200 bg-white-0 p-1">
           {(
             [
               ["all", "Hammasi"],
@@ -391,7 +391,7 @@ export default function NetworkPage() {
                   <text
                     y={-n.r * k - 6 * k}
                     textAnchor="middle"
-                    fontSize={(isHyp ? 13 : 12) * k}
+                    fontSize={(isHyp ? 17 : 16) * k}
                     fontWeight={isHyp || hover === i ? 600 : 400}
                     fill="#171717"
                     stroke="#ffffff"
