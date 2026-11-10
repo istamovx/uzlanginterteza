@@ -46,7 +46,7 @@ def _row_to_entry(row) -> dict:
         "isComplete": bool(row["is_complete"]),
         # qidiruv uchun oldindan normallashtirilgan maydonlar (API javobiga kirmaydi)
         "_norm": {
-            "unit": row["unit_normalized"],
+            "unit": normalize(row["unit"]),
             "pronunciations": [normalize(p) for p in json.loads(row["pronunciations"])],
             "synonyms": [normalize(s) for s in json.loads(row["synonyms"])],
             "hypernym": normalize(row["hypernym"]),
@@ -64,7 +64,7 @@ def load() -> None:
     finally:
         con.close()
     # tartiblash Python'da — SQLite va PostgreSQL collation farqi natijaga ta'sir qilmasin
-    rows = sorted(rows, key=lambda r: r["unit_normalized"])
+    rows = sorted(rows, key=lambda r: normalize(r["unit"]))
     _entries = [_row_to_entry(r) for r in rows]
     _by_id = {e["id"]: e for e in _entries}
 

@@ -275,7 +275,7 @@ export default function StatsPage() {
           }
         />
         <StatCard
-          label="Kontekstual sinonimlar"
+          label="Assotsiativ munosabatlar"
           value={stats.synonyms ?? "—"}
           color="#ff8447"
           bg="#fff1eb"
@@ -324,8 +324,7 @@ export default function StatsPage() {
             </div>
             <p className="text-sub">
               Qolgan {stats.total - stats.complete} ta birlikning asl manbasi,
-              sharhi va semantik munosabatlari kiritilish jarayonida. Talaffuz
-              variantlari soni: <b>{stats.pronunciations ?? "—"}</b>.
+              sharhi va semantik munosabatlari kiritilish jarayonida.
             </p>
           </div>
         </ChartCard>
@@ -361,8 +360,8 @@ export default function StatsPage() {
         </div>
       </ChartCard>
 
-      {/* Giperonim guruhlari xaritasi */}
-      <ChartCard title="Giperonim guruhlari xaritasi">
+      {/* Sinflar xaritasi */}
+      <ChartCard title="Sinflar xaritasi">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {filters.hypernyms.map((h, i) => {
             const color = PALETTE[i % PALETTE.length];

@@ -14,9 +14,8 @@ from .normalize import normalize
 # maydon og'irliklari (ARCHITECTURE.md §5)
 _WEIGHTS = {
     "unit": 1.0,
-    "pronunciations": 0.9,
-    "synonyms": 0.85,
-    "hypernym": 0.6,
+    "synonyms": 0.85,  # Assotsiativ munosabat
+    "hypernym": 0.6,  # Sinf
     "contextText": 0.45,
 }
 

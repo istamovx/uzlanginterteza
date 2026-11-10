@@ -7,22 +7,31 @@ from fastapi import APIRouter
 from pydantic import BaseModel, Field
 
 from .. import db
-from ..normalize import normalize
+from ..normalize import char_normalize, normalize
 
 router = APIRouter()
 
-_APOSTROPHES = "ʻ‘’`´ʼ′'"
-_CHAR_NORM = str.maketrans({c: "'" for c in _APOSTROPHES})
+
+def _inside_word_before(text: str, start: int) -> bool:
+    """start dan oldingi belgi so'z ichidami? Apostrof faqat harfdan keyin
+    kelsa (oʻ, gʻ, ta'sir) so'z qismi; aks holda bu ochuvchi qo'shtirnoq (‘Adan’)."""
+    if start == 0:
+        return False
+    prev = text[start - 1]
+    if prev == "'":
+        return start >= 2 and text[start - 2].isalnum()
+    return prev.isalnum()
 
 
-def _char_normalize(text: str) -> str:
-    """Uzunlikni o'zgartirmaydigan normalizatsiya (pozitsiyalar saqlanadi):
-    apostrof variantlari → ', kichik harf. Probellar siqilmaydi."""
-    return text.translate(_CHAR_NORM).lower()
-
-
-def _is_word_char(ch: str) -> bool:
-    return ch.isalnum() or ch == "'"
+def _inside_word_after(text: str, end: int) -> bool:
+    """end dagi belgi so'z davomimi? Apostrofdan keyin harf kelsa (bo'ri, g'oz)
+    so'z davom etadi; aks holda bu yopuvchi qo'shtirnoq yoki oʻ/gʻ oxiri."""
+    if end >= len(text):
+        return False
+    nxt = text[end]
+    if nxt == "'":
+        return end + 1 < len(text) and text[end + 1].isalnum()
+    return nxt.isalnum()
 
 
 @router.get("/graph")
@@ -90,8 +99,7 @@ def analyze(payload: AnalyzeIn):
     farqlariga chidamli. Javob: asl matndagi pozitsiyalar (start/end).
     """
     text = payload.text
-    norm = _char_normalize(text)
-    n = len(norm)
+    norm = char_normalize(text)
 
     # Variant → entry ro'yxati (uzunroq variantlar birinchi tekshiriladi)
     variants: list[tuple[str, dict]] = []
@@ -105,13 +113,13 @@ def analyze(payload: AnalyzeIn):
 
     raw: list[dict] = []
     for v, e in variants:
-        # probellarni moslashuvchan qilish uchun regex (bir nechta probel ham mos)
+        # probellar moslashuvchan: bir nechta probel ham mos; tire atrofidagi
+        # probel ixtiyoriy ("azobi ‒ go'r" = "azobi- go'r")
         pattern = re.escape(v).replace(r"\ ", r"\s+")
+        pattern = re.sub(r"(?:\\s\+)?\\-(?:\\s\+)?", r"\\s*-\\s*", pattern)
         for m in re.finditer(pattern, norm):
             start, end = m.start(), m.end()
-            if start > 0 and _is_word_char(norm[start - 1]):
-                continue
-            if end < n and _is_word_char(norm[end]):
+            if _inside_word_before(norm, start) or _inside_word_after(norm, end):
                 continue
             raw.append({
                 "start": start,

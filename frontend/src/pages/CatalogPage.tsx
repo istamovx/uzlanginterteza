@@ -8,7 +8,7 @@ const PAGE_SIZE = 24;
 
 const FILTER_DEFS = [
   { key: "semantic_field", label: "Semantik maydon", facet: "semanticFields" },
-  { key: "hypernym", label: "Giperonim", facet: "hypernyms" },
+  { key: "hypernym", label: "Sinf", facet: "hypernyms" },
   { key: "work", label: "Asar", facet: "works" },
   { key: "recognition", label: "Tanilish darajasi", facet: "recognitions" },
 ] as const;

@@ -55,8 +55,20 @@ def parse_synonyms(value: str) -> list[str]:
     return [v]
 
 
+def _has_pronunciation_column(ws) -> bool:
+    """Eski model (24 ustun) 4-ustunda "Talaffuzi" bor; yangi model (23 ustun)
+    da bu ustun olib tashlangan — sarlavha bo'yicha aniqlanadi."""
+    header = next(ws.iter_rows(min_row=1, max_row=1, values_only=True), ())
+    return len(header) > 3 and normalize(header[3]).startswith("talaffuz")
+
+
 def rows_from_workbook(wb, type_: str) -> tuple[list[dict], dict]:
     """Ochilgan workbook'dan yozuvlarni o'qish.
+
+    Ustunlar (yangi model, 23 ta): ID, birlik, tur, intertekstual matn,
+    6 ta intertekst ustuni, 6 ta asl manba ustuni, anglanish darajasi,
+    kontekstual sharh, semantik maydon, assotsiativ munosabat, sinf, individ, izoh.
+    Eski 24 ustunli fayl (4-ustun "Talaffuzi") ham qabul qilinadi.
 
     Qaytaradi: (entries, hint) — hint 3-ustundagi tur yorlig'i statistikasi
     (fayl noto'g'ri turda yuklanganini aniqlash uchun) va "duplicates" —
@@ -64,6 +76,7 @@ def rows_from_workbook(wb, type_: str) -> tuple[list[dict], dict]:
     """
     prefix = TYPE_PREFIX[type_]
     ws = wb.active
+    legacy = _has_pronunciation_column(ws)
     entries: list[dict] = []
     hint: dict = {t: 0 for t in TYPE_PREFIX}
     duplicates: list[str] = []
@@ -71,6 +84,9 @@ def rows_from_workbook(wb, type_: str) -> tuple[list[dict], dict]:
     for row in ws.iter_rows(min_row=2, values_only=True):
         cells = [clean(c) for c in row[:24]]
         cells += [""] * (24 - len(cells))
+        if not legacy:
+            # talaffuz ustuni yo'q — eski tartibga moslash uchun bo'sh ustun qo'yiladi
+            cells = cells[:3] + [""] + cells[3:23]
         (rid, unit, unit_label, pron, ctx_text,
          it_author, it_work, it_genre, it_year, it_pub, it_page,
          src_desc, src_author, src_work, src_genre, src_pub, src_period,

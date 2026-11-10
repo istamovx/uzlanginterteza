@@ -9,12 +9,31 @@ from ..normalize import normalize
 router = APIRouter()
 
 
+# O'zbek lotin alifbosi tartibi: Oʻ, Gʻ, Sh, Ch — alohida harflar, Z dan keyin
+_UZ_ORDER = [*"ABDEFGHIJKLMNOPQRSTUVXYZ", "Oʻ", "Gʻ", "Sh", "Ch"]
+
+
 def _first_letter(text: str) -> str:
-    """Birinchi harf (tinish belgilari tashlab yuboriladi) — alifbo indeksi uchun."""
-    for ch in text:
+    """Birinchi harf (tinish belgilari tashlab yuboriladi) — alifbo indeksi uchun.
+
+    Matn normalize() dan o'tgan bo'lishi kerak (apostroflar → '). "o'"/"g'"
+    bilan boshlangan so'zlar O/G ga emas, alohida Oʻ/Gʻ harfiga tushadi;
+    "sh"/"ch" ham S/C emas, Sh/Ch harflari.
+    """
+    for i, ch in enumerate(text):
         if ch.isalpha():
-            return ch.upper()
+            letter = ch.upper()
+            nxt = text[i + 1:i + 2]
+            if letter in "OG" and nxt == "'":
+                return letter + "ʻ"
+            if letter in "SC" and nxt == "h":
+                return letter + "h"
+            return letter
     return ""
+
+
+def _letter_key(letter: str) -> tuple[int, str]:
+    return (_UZ_ORDER.index(letter) if letter in _UZ_ORDER else len(_UZ_ORDER), letter)
 
 
 def _matches(e: dict, type_: str | None, semantic_field: str | None,
@@ -30,7 +49,7 @@ def _matches(e: dict, type_: str | None, semantic_field: str | None,
         return False
     if work and normalize(e["intertext"]["work"]) != normalize(work):
         return False
-    if letter and _first_letter(e["_norm"]["unit"]) != normalize(letter).upper():
+    if letter and normalize(_first_letter(e["_norm"]["unit"])) != normalize(letter):
         return False
     return True
 
@@ -104,7 +123,10 @@ def get_filters():
         ]
         return sorted(items, key=lambda x: (-x["count"], x["value"]))
 
-    letters = sorted({lt for e in entries if (lt := _first_letter(e["_norm"]["unit"]))})
+    letters = sorted(
+        {lt for e in entries if (lt := _first_letter(e["_norm"]["unit"]))},
+        key=_letter_key,
+    )
     return {
         "types": count(lambda e: e["type"]),
         "semanticFields": count(lambda e: e["semanticField"]),

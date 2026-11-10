@@ -143,16 +143,6 @@ export default function EntryPage() {
             </h1>
             <div className="no-print flex shrink-0 items-center gap-2">
               <button
-                title="Audio talaffuz — tez orada"
-                disabled
-                className="flex h-10 w-10 cursor-not-allowed items-center justify-center rounded-full border border-soft-200 bg-white-0/70 text-disabled"
-                aria-label="Audio talaffuz (tez orada)"
-              >
-                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
-                  <path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z" />
-                </svg>
-              </button>
-              <button
                 onClick={() => window.print()}
                 className="flex h-10 w-10 items-center justify-center rounded-full border border-soft-200 bg-white-0/70 text-sub transition-colors hover:border-primary hover:text-primary"
                 aria-label="Chop etish"
@@ -164,13 +154,6 @@ export default function EntryPage() {
               </button>
             </div>
           </div>
-
-          {entry.pronunciations.length > 0 && (
-            <p className="text-sub">
-              <span className="font-medium">Talaffuzi:</span>{" "}
-              {entry.pronunciations.join(" / ")}
-            </p>
-          )}
 
           <div className="flex flex-wrap gap-2">
             <Badge variant={typeVariant(entry.type)}>
@@ -267,7 +250,7 @@ export default function EntryPage() {
             >
               <div className="grid gap-4 rounded-2xl border border-soft-200 bg-white-0 p-5 sm:grid-cols-3">
                 <div className="flex flex-col gap-2">
-                  <h3 className="font-medium text-sub">Kontekstual sinonimlar</h3>
+                  <h3 className="font-medium text-sub">Assotsiativ munosabat</h3>
                   {entry.synonymsLinked.length > 0 ? (
                     <ul className="flex flex-col gap-2.5">
                       {entry.synonymsLinked.map((s, i) => {
@@ -290,7 +273,7 @@ export default function EntryPage() {
                   )}
                 </div>
                 <div className="flex flex-col gap-2">
-                  <h3 className="font-medium text-sub">Giperonim</h3>
+                  <h3 className="font-medium text-sub">Sinf</h3>
                   {entry.hypernym ? (
                     <Link
                       to={`/katalog?hypernym=${encodeURIComponent(entry.hypernym)}`}
@@ -303,7 +286,7 @@ export default function EntryPage() {
                   )}
                 </div>
                 <div className="flex flex-col gap-2">
-                  <h3 className="font-medium text-sub">Giponim</h3>
+                  <h3 className="font-medium text-sub">Individ</h3>
                   {entry.hyponym ? (
                     <p className="whitespace-pre-line">{entry.hyponym}</p>
                   ) : (

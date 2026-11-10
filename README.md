@@ -21,9 +21,9 @@ REST API endpointlari:
 
 | Metod | Yo'l | Vazifasi |
 |---|---|---|
-| GET | `/api/entries` | Birliklar ro'yxati (filtr: tur, semantik maydon, giperonim, asar, harf) |
-| GET | `/api/entries/{id}` | Bitta birlik to'liq + bog'langan sinonimlar va o'xshash birliklar |
-| GET | `/api/search?q=` | Qidiruv (apostrof va talaffuz variantlariga chidamli) |
+| GET | `/api/entries` | Birliklar ro'yxati (filtr: tur, semantik maydon, sinf, asar, harf) |
+| GET | `/api/entries/{id}` | Bitta birlik to'liq + bog'langan assotsiativ birliklar va o'xshash birliklar |
+| GET | `/api/search?q=` | Qidiruv (apostrof va tire variantlariga chidamli) |
 | GET | `/api/filters` | Filtr qiymatlari va sonlari |
 | GET | `/api/stats` | Statistika |
 | GET | `/api/graph` | Semantik tarmoq (tugunlar va bog'lar) |

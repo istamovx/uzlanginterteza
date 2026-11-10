@@ -16,16 +16,16 @@ const BOOKS: { title: string; cover?: string; tint: string }[] = [
 
 /* Apostrof variantlari va registrni birxillashtirish (backend normalize bilan bir xil) */
 const norm = (s: string) =>
-  s.replace(/[ʻ‘’`´ʼ′']/g, "'").replace(/\s+/g, " ").trim().toLowerCase();
+  s.replace(/[ʻ‘’`´ʼ′']/g, "'").replace(/[‒–—―−‐‑]/g, "-").replace(/\s+/g, " ").trim().toLowerCase();
 
 const NODES = [
-  { name: "Intertekstual birlik", desc: "Allyuziv nom, iqtibos yoki maqol, talaffuz variantlari", color: "#335cff" },
+  { name: "Intertekstual birlik", desc: "Allyuziv nom, iqtibos yoki maqol", color: "#335cff" },
   { name: "Intertekstual matn", desc: "Birlik uchragan asar: muallif, janr, davr, sahifa", color: "#7d52f4" },
   { name: "Asl manba", desc: "Kelib chiqishi: muallif, asar, janr, davr", color: "#1fc16b" },
   { name: "Tanilish darajasi", desc: "Yadro yoki periferiya", color: "#fb4ba3" },
   { name: "Kontekstual sharh", desc: "Matndagi vazifasi va ma'no qirralari", color: "#ff8447" },
   { name: "Semantik maydon", desc: "Badiiy, tarixiy, diniy, ijtimoiy-falsafiy...", color: "#47c2ff" },
-  { name: "Semantik munosabat", desc: "Kontekstual sinonim, giperonim, giponim", color: "#fb3748" },
+  { name: "Semantik munosabat", desc: "Assotsiativ munosabat, sinf, individ", color: "#fb3748" },
   { name: "Izoh", desc: "Kengaytirilgan lingvistik tahlil", color: "#2547d0" },
 ];
 
@@ -65,7 +65,7 @@ export default function AboutPage() {
         </p>
         <p>
           Qidiruv imlo variantlariga chidamli: apostrofning turli shakllari
-          (oʻ, o', o') va talaffuz variantlari (Navoiy / Navoyi / Navoi)
+          (oʻ, o', o‘), tire turlari (‒, –, -) va katta-kichik harf farqi
           avtomatik hisobga olinadi.
         </p>
         <p>

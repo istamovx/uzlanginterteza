@@ -10,15 +10,24 @@ model) — bu ilmiy model saytdagi birlik sahifasining rasmiy strukturasi hisobl
 
 ```
 Birlik
-├── Intertekstual birlik  → Allyuziv nom/Iqtibos, Talaffuz
+├── Intertekstual birlik  → Allyuziv nom/Iqtibos/Maqol
 ├── Intertekstual matn    → Matn, Muallif, Asar, Janr, Davr, Nashriyot, Sahifa
 ├── Asl manba             → Muallif, Asar, Janr, Nashriyot, Davr
 ├── Tanilish darajasi     → yadro / periferiya
 ├── Kontekstual sharh
 ├── Semantik maydon
-├── Semantik munosabat    → Kontekstual sinonim, Giperonim, Giponim
+├── Semantik munosabat    → Assotsiativ munosabat, Sinf, Individ
 └── Izoh
 ```
+
+> **Model o'zgarishi (2026-11-10).** Excel fayllar 23 ustunli yangi modelga o'tdi:
+> "Talaffuzi" ustuni olib tashlandi; "Sinonim" → **Assotsiativ munosabat**,
+> "Giperonim" → **Sinf**, "Giponim" → **Individ**; "Aralash allyuziv nomlar"
+> semantik maydoni olib tashlandi. Orqaga moslik uchun API maydon nomlari
+> o'zgarmadi: `synonyms` = assotsiativ munosabat, `hypernym` = sinf,
+> `hyponym` = individ, `pronunciations` har doim bo'sh massiv. Importer eski
+> 24 ustunli faylni ham ("Talaffuzi" sarlavhasi bo'yicha) taniydi.
+> Quyidagi bo'limlarda eski atamalar tarixiy kontekstda qolgan.
 
 ---
 

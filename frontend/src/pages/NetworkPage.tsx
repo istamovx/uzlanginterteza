@@ -251,7 +251,7 @@ export default function NetworkPage() {
             Semantik tarmoq
           </h1>
           <p className="text-sub">
-            Barcha birliklar va giperonim guruhlari bitta grafda. G'ildirak —
+            Barcha birliklar va sinflar bitta grafda. G'ildirak —
             masshtab, sudrash — surish, tugun ustiga boring yoki bosing.
           </p>
         </div>
@@ -287,10 +287,10 @@ export default function NetworkPage() {
         ))}
         <span className="flex items-center gap-2">
           <span className="h-3.5 w-3.5 rounded-full border-2 border-soft" style={{ background: "#f7f7f7" }} />
-          Giperonim guruhi
+          Sinf
         </span>
         <span className="flex items-center gap-2">
-          <span className="inline-block h-0.5 w-6 bg-highlight" /> Sinonimik munosabat
+          <span className="inline-block h-0.5 w-6 bg-highlight" /> Assotsiativ munosabat
         </span>
       </div>
 

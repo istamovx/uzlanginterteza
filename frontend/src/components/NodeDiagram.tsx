@@ -5,7 +5,7 @@ import TooltipLink from "./TooltipLink";
 
 /* "Layli va Majnun" diagrammasi uslubidagi uzellar ko'rinishi — interaktiv:
    markazdagi birlikdan har bir uzelga SVG chiziq tortiladi, karta ustiga
-   borilganda chiziq yonadi, sinonim va giperonimlar bosiladi. */
+   borilganda chiziq yonadi, assotsiativ birliklar va sinflar bosiladi. */
 
 interface LineSeg {
   x1: number;
@@ -85,7 +85,6 @@ export default function NodeDiagram({ entry }: { entry: EntryDetail }) {
           label={TYPE_LABELS[entry.type]}
           value={entry.unit}
         />
-        <Field label="Talaffuz" value={entry.pronunciations.join(" / ")} />
       </>
     ),
   });
@@ -147,7 +146,7 @@ export default function NodeDiagram({ entry }: { entry: EntryDetail }) {
         <>
           {entry.synonymsLinked.length > 0 && (
             <p className="flex flex-wrap items-center gap-x-1.5">
-              <b>Kontekstual sinonim:</b>
+              <b>Assotsiativ munosabat:</b>
               {entry.synonymsLinked.map((s, i) => {
                 const m = s.text.match(/^([^(]+?)\s*\((.+?)\)\s*$/);
                 const name = m ? m[1].trim() : s.text;
@@ -164,7 +163,7 @@ export default function NodeDiagram({ entry }: { entry: EntryDetail }) {
           )}
           {entry.hypernym && (
             <p>
-              <b>Giperonim:</b>{" "}
+              <b>Sinf:</b>{" "}
               <Link
                 to={`/katalog?hypernym=${encodeURIComponent(entry.hypernym)}`}
                 className="font-medium text-primary underline-offset-2 hover:underline"
@@ -173,7 +172,7 @@ export default function NodeDiagram({ entry }: { entry: EntryDetail }) {
               </Link>
             </p>
           )}
-          <Field label="Giponim" value={entry.hyponym} />
+          <Field label="Individ" value={entry.hyponym} />
         </>
       ),
     });
