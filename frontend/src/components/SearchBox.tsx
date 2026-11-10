@@ -85,7 +85,7 @@ export default function SearchBox({ autoFocus = false }: { autoFocus?: boolean }
       </div>
 
       {open && shown.length > 0 && (
-        <ul className="absolute inset-x-0 top-full z-30 mt-2 max-h-96 overflow-auto rounded-2xl border border-soft-200 bg-white-0 py-2 shadow-lg">
+        <ul className="absolute inset-x-0 top-full z-30 mt-2 text-left max-h-96 overflow-auto rounded-2xl border border-soft-200 bg-white-0 py-2 shadow-lg">
           {results.length === 0 && (
             <li className="px-5 py-2 text-sub">Balki bularni izlagandirsiz:</li>
           )}

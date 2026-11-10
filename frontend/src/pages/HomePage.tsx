@@ -37,7 +37,9 @@ export default function HomePage() {
   return (
     <div className="flex flex-col gap-10 py-4 sm:gap-14 sm:py-10">
       {/* Hero + qidiruv */}
-      <section className="relative mx-auto flex w-full max-w-4xl flex-col items-center gap-6 text-center">
+      {/* z-20: qidiruv ro'yxati pastdagi animatsiyali kartalar (o'z qatlamini
+          yaratadi) ustida ko'rinishi uchun */}
+      <section className="relative z-20 mx-auto flex w-full max-w-4xl flex-col items-center gap-6 text-center">
         {/* Bezak fon: yumshoq nur */}
         <div className="pointer-events-none absolute inset-x-0 -top-12 bottom-0 -z-10" aria-hidden>
           <div className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-primary-light/60 blur-3xl" />
